@@ -25,7 +25,7 @@ function processMessage($message) {
       sendMessage("sendMessage", array('chat_id' => $chat_id, "text" => getResult('quina', $text)));
     } else if ($text === "Lotomania") {
       sendMessage("sendMessage", array('chat_id' => $chat_id, "text" => getResult('lotomania', $text)));
-    } else if ($text === "Lotofacil") {
+    } else if ($text === "Lotofácil") {
       sendMessage("sendMessage", array('chat_id' => $chat_id, "text" => getResult('lotofacil', $text)));
     } else {
       sendMessage("sendMessage", array('chat_id' => $chat_id, "text" => 'Desculpe, mas não entendi essa mensagem. :('));
@@ -49,13 +49,11 @@ $context  = stream_context_create( $options );
 file_get_contents(API_URL.$method, false, $context );
 }
 
-$update_response = file_get_contents(API_URL."getupdates");
+$update_response = file_get_contents("php://input");
 
-$response = json_decode($update_response, true);
+$update = json_decode($update_response, true);
 
-$length = count($response["result"]);
-
-$update = $response["result"][$length-1];
+print_r($update);
 
 if (isset($update["message"])) {
   processMessage($update["message"]);
