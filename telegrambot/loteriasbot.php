@@ -53,8 +53,6 @@ $update_response = file_get_contents("php://input");
 
 $update = json_decode($update_response, true);
 
-print_r($update);
-
 if (isset($update["message"])) {
   processMessage($update["message"]);
 }
