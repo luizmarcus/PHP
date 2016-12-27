@@ -16,10 +16,10 @@ function processMessage($message) {
   
   if (isset($text)) {
 		if ($text === "login" || $text === "Login") {
-		  sendMessage(array('recipient' => array('id' => $sender), 'message' => array("attachment" => array('type'=>'template','payload'=>array('template_type'=>'generic','elements'=>array(array("title"=> "Teste de Login","image_url"=>"https://luizmarcus.com/wp-content/uploads/2016/08/new-app-768x428.png",'buttons'=>array(array('type'=>'account_link','url'=>'https://luizmarcus.com/loginbot/login.php')))))))));
+		  sendMessage(array('recipient' => array('id' => $sender), 'message' => array("attachment" => array('type'=>'template','payload'=>array('template_type'=>'generic','elements'=>array(array("title"=> "Teste de Login","image_url"=>"https://luizmarcus.com/wp-content/uploads/2016/08/new-app-768x428.png",'buttons'=>array(array('type'=>'account_link','url'=>'LINK PARA O SEU SISTEMA')))))))));
 		}else {
 		  sendMessage(array('recipient' => array('id' => $sender), 'message' => array("text" => "Olá! Eu sou um bot que serve com exemplo da funcionalidade 'Vinculação de Contas' da API do Facebook Messenger. Digite 'login' para começar.")));
-		  sendMessage(array('recipient' => array('id' => $sender), 'message' => array("text" => "Quer ver o código-fonte desse bot? Acesse: https://luizmarcus.com/php/como-criar-um-bot-para-o-facebook-messenger-em-php/")));
+		  sendMessage(array('recipient' => array('id' => $sender), 'message' => array("text" => "Quer ver o código-fonte desse bot? Acesse: https://luizmarcus.com/php/vinculacao-de-conta-account-linking-no-facebook-messenger/")));
 		}
   } else if(isset($account_linking_status)){
       if($account_linking_status==="linked"){
