@@ -11,7 +11,7 @@
             <input type="hidden" name="account_linking_token" value="<?=$account_linking_token?>"/>
             <input type="hidden" name="authorization_code" value="my_authorization_code"/>
 			
-			Uusário:
+			Usuário:
             <input type="text" name="username"/>
             </br>
 			Senha:
