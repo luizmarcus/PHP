@@ -28,34 +28,32 @@ function getResult($lottery){
 }
 
 function parser($url){
-
+	
 	//obtém o html da página
 	$html = file_get_html($url);
-
+	
 	if (!empty($html)) {
-
-		$concurso = $html->find('span.numero-concurso',0)->plaintext;
-		$data = $html->find('span.data-concurso',0)->plaintext;
-		if(!isset($html->find('div[class="dados-nao-acumulou desativado"]',0)->plaintext)){
-			$acumulado = $html->find('span.label-valor-acumulado',0)->plaintext." ".$html->find('span.valor-acumulado',0)->plaintext;
+		$concurso_header = explode(" - ", $html->find('span.content-lottery__info',0)->plaintext);
+		$concurso = $concurso_header[0];
+		$data = $concurso_header[1];
+		if(!isset($html->find('div[class="content-lottery__ammount desativado"]',0)->plaintext)){
+			$acumulado = $html->find('div[class="content-lottery__ammount"]',0)->plaintext;
 		}else{
 			$acumulado = "Não Acumulou!";
 		}
-
-
 		$numeros = "";
-		foreach ($html->find('span.numero-sorteado') as $numero) {
+		foreach ($html->find('div[class="content-lottery__result"]') as $numero) {
 			$numeros .= $numero->plaintext . "  ";
 		}
-
 		$premios = "";
-		foreach ($html->find('tr.premio') as $premio) {
-			$premios .= "\n" . $premio->find('td.label-premio',0)->plaintext . " - " . $premio->find('td.ganhadores-premio',0)->plaintext;
-			if ($premio->find('td.rateio-premio',0)->plaintext != "-") {
-				$premios .= " - ".$premio->find('td.rateio-premio',0)->plaintext;
+		foreach ($html->find('div[class="content-lottery__awards"]')[0]->find('tr') as $premio) {
+			$premios .= "\n" . $premio->find('td.col-acertos',0)->plaintext." - " . $premio->find('td.col-ganhadores',0)->plaintext;
+			if (strpos($premio->find('td.col-premio',0)->plaintext,"-")==false) {
+				$premios .= " ganhadores "." - ".$premio->find('td.col-premio',0)->plaintext;
+			}else{
+			    $premios .= $premio->find('td.col-premio',0)->plaintext;
 			}
 		}
-
 		return "\n---------------".
 		"\n".$concurso .
 		"\nDATA: " . $data .
