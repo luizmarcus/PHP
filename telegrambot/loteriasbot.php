@@ -46,6 +46,10 @@ function processMessage($message) {
     } else {
       sendMessage("sendMessage", array('chat_id' => $chat_id, "text" => 'Desculpe, mas não entendi essa mensagem. :('));
     }
+  } else if (isset($message['photo'])) { //checa se existe imagem na mensagem
+	  $photo = $message['photo'][count($message['photo'])-1]; //obtém a imagem no tamanho original
+	  //envia a imagem recebida com a legenda
+	  sendMessage("sendPhoto", array('chat_id' => $chat_id, "photo" => $photo["file_id"], "caption" => "A legenda da foto foi: ".$$message["caption"]));
   } else {
     sendMessage("sendMessage", array('chat_id' => $chat_id, "text" => 'Desculpe, mas só compreendo mensagens em texto'));
   }
