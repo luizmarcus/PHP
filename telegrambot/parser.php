@@ -17,9 +17,9 @@ function getResult($lottery, $title){
 	}elseif($lottery=="quina"){
 		$out .= parser(URL_QUINA);
 	}elseif($lottery=="lotofacil"){
-		$out .= parser(URL_LOTOMANIA);
-	}else{
 		$out .= parser(URL_LOTOCACIL);
+	}else{
+		$out .= parser(URL_LOTOMANIA);	
 	}
 
 	return $out;
@@ -42,7 +42,7 @@ function parser($url){
 			$numeros .= $numero->plaintext . "  ";
 		}
 		$premios = "";
-		foreach ($html->find('div[class="content-lottery__awards"]')[0]->find('tr') as $premio) {
+		foreach ($html->find('div[class="row content-lottery__awards"]')[0]->find('tr') as $premio) {
 			$premios .= "\n" . $premio->find('td.col-acertos',0)->plaintext." - " . $premio->find('td.col-ganhadores',0)->plaintext;
 			if (strpos($premio->find('td.col-premio',0)->plaintext,"-")==false) {
 				$premios .= " ganhadores "." - ".$premio->find('td.col-premio',0)->plaintext;
