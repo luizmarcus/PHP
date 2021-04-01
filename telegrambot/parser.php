@@ -13,19 +13,19 @@ function getResult($lottery, $title){
 	$out = "Resultado - ".$title;
 
 	if($lottery=="megasena"){
-		$out .= parser(URL_MEGA);
+		$out .= parser(URL_MEGA,$lottery);
 	}elseif($lottery=="quina"){
-		$out .= parser(URL_QUINA);
+		$out .= parser(URL_QUINA,$lottery);
 	}elseif($lottery=="lotofacil"){
-		$out .= parser(URL_LOTOCACIL);
+		$out .= parser(URL_LOTOCACIL,$lottery);
 	}else{
-		$out .= parser(URL_LOTOMANIA);	
+		$out .= parser(URL_LOTOMANIA,$lottery);	
 	}
 
 	return $out;
 }
 
-function parser($url){
+function parser($url, $lottery){
 	//obtém o html da página
 	$html = file_get_html($url);
 	if (!empty($html)) {
@@ -38,7 +38,7 @@ function parser($url){
 			$acumulado = "Não Acumulou!";
 		}
 		$numeros = "";
-		foreach ($html->find('div[class="content-lottery__result"]') as $numero) {
+		foreach ($html->find('div[class="content-lottery__result content-lottery__result--'.$lottery.'"]') as $numero) {
 			$numeros .= $numero->plaintext . "  ";
 		}
 		$premios = "";
