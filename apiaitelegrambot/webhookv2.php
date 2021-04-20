@@ -7,23 +7,22 @@ define('URL_LOTOMANIA', BASE_URL.'lotomania.html');
 define('URL_LOTOCACIL', BASE_URL.'lotofacil.html');
 function getResult($lottery){
 	$out = "Resultado - ".$lottery;
-	if($lottery=="Mega-Sena"){
-		$out .= parser(URL_MEGA);
-	}elseif($lottery=="Quina"){
-		$out .= parser(URL_QUINA);
-	}elseif($lottery=="Lotofácil"){
-		$out .= parser(URL_LOTOCACIL);
+
+	if($lottery=="megasena"){
+		$out .= parser(URL_MEGA,$lottery);
+	}elseif($lottery=="quina"){
+		$out .= parser(URL_QUINA,$lottery);
+	}elseif($lottery=="lotofacil"){
+		$out .= parser(URL_LOTOCACIL,$lottery);
 	}else{
-		$out .= parser(URL_LOTOMANIA);	
+		$out .= parser(URL_LOTOMANIA,$lottery);	
 	}
 	
 	return json_encode(array("fulfillmentText" => $out));
 }
-function parser($url){
-	
+function parser($url, $lottery){
 	//obtém o html da página
 	$html = file_get_html($url);
-	
 	if (!empty($html)) {
 		$concurso_header = explode(" - ", $html->find('span.content-lottery__info',0)->plaintext);
 		$concurso = $concurso_header[0];
@@ -34,11 +33,11 @@ function parser($url){
 			$acumulado = "Não Acumulou!";
 		}
 		$numeros = "";
-		foreach ($html->find('div[class="content-lottery__result"]') as $numero) {
+		foreach ($html->find('div[class="content-lottery__result content-lottery__result--'.$lottery.'"]') as $numero) {
 			$numeros .= $numero->plaintext . "  ";
 		}
 		$premios = "";
-		foreach ($html->find('div[class="content-lottery__awards"]')[0]->find('tr') as $premio) {
+		foreach ($html->find('div[class="row content-lottery__awards"]')[0]->find('tr') as $premio) {
 			$premios .= "\n" . $premio->find('td.col-acertos',0)->plaintext." - " . $premio->find('td.col-ganhadores',0)->plaintext;
 			if (strpos($premio->find('td.col-premio',0)->plaintext,"-")==false) {
 				$premios .= " ganhadores "." - ".$premio->find('td.col-premio',0)->plaintext;
