@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <script src="https://telegram.org/js/telegram-web-app.js"></script>       
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>
+            function getProducts(){
+                    $.ajax({
+                        type:'GET',
+                        url: '/webappbot/webapp/server.php', //trocar para o endereço do seu servidor
+                        success: function (data){
+                            //console.log('success',data);
+                            var images = $.parseJSON(data);
+                            for(var i=0;i<images.length;i++){
+                                $('#computer'+i).attr("src",images[i]);
+                            }
+                            window.Telegram.WebApp.ready();
+                        }
+                    });
+            }
+
+            function buy(product){
+              window.Telegram.WebApp.sendData(product);
+            }
+        </script>        
+    </head>
+    <body onload="getProducts()">
+        
+        <nav>
+            <div class="nav-wrapper">
+              <a href="#" class="brand-logo">Lojinha</a>
+            </div>
+        </nav>
+        
+      <div class="container">
+        <div class="row">
+            <div class="col s12 m3">
+              <div class="card">
+                <div class="card-image">
+                  <img id="computer0" src="">
+                  <span class="card-title">Macbook M1</span>
+                </div>
+                <div class="card-content">
+                  <p>Macbook com chip M1.</p>
+                </div>
+                <div class="card-action">
+                  <a href="#" onclick="buy('Macbook M1'); return false;">Comprar!</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col s12 m3">
+                <div class="card">
+                  <div class="card-image">
+                    <img id="computer1" src="">
+                    <span class="card-title">Macbook M2</span>
+                  </div>
+                  <div class="card-content">
+                    <p>Macbook com chip M2.</p>
+                  </div>
+                  <div class="card-action">
+                    <a href="#" onclick="buy('Macbook M2'); return false;">Comprar!</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col s12 m3">
+                <div class="card">
+                  <div class="card-image">
+                    <img id="computer2" src="">
+                    <span class="card-title">Macbook M3</span>
+                  </div>
+                  <div class="card-content">
+                    <p>Macbook com chip M3.</p>
+                  </div>
+                  <div class="card-action">
+                    <a href="#" onclick="buy('Macbook M3'); return false;">Comprar!</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col s12 m3">
+                <div class="card">
+                  <div class="card-image">
+                    <img id="computer3" src="">
+                    <span class="card-title">Macbook M4</span>
+                  </div>
+                  <div class="card-content">
+                    <p>Macbook com chip M4.</p>
+                  </div>
+                  <div class="card-action">
+                    <a href="#" onclick="buy('Macbook M4'); return false;">Comprar!</a>
+                  </div>
+                </div>
+              </div>              
+            </div>
+              
+            <div class="row">
+              <div class="col s12 m3">
+                <div class="card">
+                  <div class="card-image">
+                    <img id="computer4" src="">
+                    <span class="card-title">Macbook M5</span>
+                  </div>
+                  <div class="card-content">
+                    <p>Macbook com chip M5.</p>
+                  </div>
+                  <div class="card-action">
+                    <a href="#" onclick="buy('Macbook M5'); return false;">Comprar!</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col s12 m3">
+                <div class="card">
+                  <div class="card-image">
+                    <img id="computer5" src="">
+                    <span class="card-title">Macbook M6</span>
+                  </div>
+                  <div class="card-content">
+                    <p>Macbook com chip M6.</p>
+                  </div>
+                  <div class="card-action">
+                    <a href="#" onclick="buy('Macbook M6'); return false;">Comprar!</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col s12 m3">
+                <div class="card">
+                  <div class="card-image">
+                    <img id="computer6" src="">
+                    <span class="card-title">Macbook M7</span>
+                  </div>
+                  <div class="card-content">
+                    <p>Macbook com chip M7.</p>
+                  </div>
+                  <div class="card-action">
+                    <a href="#" onclick="buy('Macbook M7'); return false;">Comprar!</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col s12 m3">
+                <div class="card">
+                  <div class="card-image">
+                    <img id="computer7" src="">
+                    <span class="card-title">Macbook M8</span>
+                  </div>
+                  <div class="card-content">
+                    <p>Macbook com chip M8.</p>
+                  </div>
+                  <div class="card-action">
+                    <a href="#" onclick="buy('Macbook M8'); return false;">Comprar!</a>
+                  </div>
+                </div>
+              </div>
+        </div>
+        </div>
+        
+    </body>
+
+</html>
